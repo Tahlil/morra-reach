@@ -1,5 +1,7 @@
 'reach 0.1';
 
+const [ isResult, B_WINS, DRAW, A_WINS, NO_RESULT ] = makeEnum(4);
+
 const MorraPlayer = {
   ...hasRandom,
   getFingers: Fun([], UInt),
