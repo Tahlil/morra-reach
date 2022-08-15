@@ -6,7 +6,8 @@ const MorraPlayer = {
   ...hasRandom,
   getFingers: Fun([], UInt),
   sayNumber: Fun([], UInt),
-  getResult: Fun([UInt, UInt], Bool) // return true if there is a result otherwise will return false
+  getResult: Fun([UInt, UInt], Bool), // return true if there is a result otherwise will return false
+  confirmTimeOut: Fun([], Null)
 } 
 
 export const main = Reach.App(() => {
@@ -27,6 +28,13 @@ export const main = Reach.App(() => {
   });
  
   init();
+
+  const confirmTimeOut = () => {
+    each([Alice, Bob], () => {
+      interact.confirmTimeOut();
+    });
+  };
+
   
   commit();
   // write your program here
