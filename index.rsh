@@ -18,6 +18,7 @@ export const main = Reach.App(() => {
   //   tellNumber: Fun([], UInt),
   //   showResult: Fun([UInt], Null)
   // });
+  const deadline = 10;
   
 
   const Alice = Participant('Alice', {
@@ -42,7 +43,21 @@ export const main = Reach.App(() => {
   var result = DRAW;
   invariant(balance() == 0 && isResult(result))
   while (result == DRAW || result == NO_RESULT) {
-    
+    commit();
+    Alice.only(() => {
+      const _fingersAlice = interact.getFingers();
+      const [_commitAlice, _saltAlice] = makeCommitment(interact, _fingersAlice);
+      const commitAlice = declassify(_commitAlice);
+    });
+    Alice.publish(commitAlice);
+    commit();
+    Bob.only(() => {
+      const _fingersBob = interact.getFingers();
+      const [_commitBob, _saltBob] = makeCommitment(interact, _fingersBob);
+      const commitBob = declassify(_commitBob);
+    });
+    Bob.publish(commitBob);
+
   }
 
   
