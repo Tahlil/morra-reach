@@ -18,6 +18,7 @@ export const main = Reach.App(() => {
   //   tellNumber: Fun([], UInt),
   //   showResult: Fun([UInt], Null)
   // });
+  
 
   const Alice = Participant('Alice', {
     ...MorraPlayer,
@@ -34,9 +35,18 @@ export const main = Reach.App(() => {
       interact.confirmTimeOut();
     });
   };
+  Alice.publish();
+  commit();
+  Bob.publish();
+
+  var result = DRAW;
+  invariant(balance() == 0 && isResult(result))
+  while (result == DRAW || result == NO_RESULT) {
+    
+  }
 
   
-  commit();
+
   // write your program here
   exit();
 });
