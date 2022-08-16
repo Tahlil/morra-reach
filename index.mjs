@@ -54,7 +54,12 @@ interact.confirmTimeOut = () => {
 };
 
 interact.getFingers = async () => {
-
+ let fingers = -1;
+ while(fingers < 0 || fingers > 5){
+  fingers = await ask.ask(`How many fingers would you show?`, 
+  parseInt);
+ }
+ return fingers;
 }
 
 interact.sayNumber = async () => {
