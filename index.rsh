@@ -117,13 +117,13 @@ export const main = Reach.App(() => {
     const currentResult = selectWinner(fingerBob, fingerAlice, numberBob, numberAlice);
     if(currentResult == ALICE_WINS){
       commit();
-      const payment = fingerAlice+fingerBob;
+      const payment = (fingerAlice+fingerBob) * 1000000000;
       Bob.pay(payment);
       transfer(payment).to(Alice);
     }
     else if(currentResult == BOB_WINS){
       commit();
-      const payment = fingerAlice+fingerBob;
+      const payment = (fingerAlice+fingerBob) * 1000000000;
       Alice.pay(payment);
       transfer(payment).to(Bob);
     }
