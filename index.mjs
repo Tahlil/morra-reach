@@ -71,8 +71,8 @@ interact.sayNumber = async () => {
  return number;
 }
 
-interact.showResult = async () => {
-  
+interact.showResult = async (res) => {
+  console.log(`The result it ${allResults[result]}`);
 }
 
 const part = isAlice ? ctc.p.Alice : ctc.p.Bob;
