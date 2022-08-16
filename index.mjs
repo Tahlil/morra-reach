@@ -46,3 +46,29 @@ const getBalance = async () => fmt(await stdlib.balanceOf(acc));
 const before = await getBalance();
 console.log(`${who}'s balance is ${before}`);
 
+const interact = { ...stdlib.hasRandom };
+
+interact.confirmTimeOut = () => {
+  console.log(`Timeout occured.`);
+  process.exit(1);
+};
+
+interact.getFingers = async () => {
+
+}
+
+interact.sayNumber = async () => {
+  
+}
+
+interact.showResult = async () => {
+  
+}
+
+const part = isAlice ? ctc.p.Alice : ctc.p.Bob;
+await part(interact);
+
+const after = await getBalance();
+console.log(`${who}'s balance is now ${after}`);
+
+ask.done();
