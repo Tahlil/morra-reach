@@ -3,17 +3,30 @@ import * as backend from './build/index.main.mjs';
 const stdlib = loadStdlib(process.env);
 
 const allResults = [ "It's a Draw", "Alice Wisn!", "Bob Wins!", "No Result" ];
-const startingBalance = stdlib.parseCurrency(100);
+const isAlice = await ask.ask(
+  `Are you Alice?`,
+  ask.yesno
+);
+const who = isAlice ? 'Alice' : 'Bob';
 
-const [ accAlice, accBob ] =
-  await stdlib.newTestAccounts(2, startingBalance);
-console.log('Hello, Alice and Bob!');
+console.log(`Playing as ${who}`);
 
-console.log('Launching...');
-const ctcAlice = accAlice.contract(backend);
-const ctcBob = accBob.contract(backend, ctcAlice.getInfo());
+let acc = null;
+const createAcc = await ask.ask(
+  `Would you like to create an account on devnet?`,
+  ask.yesno
+);
+if (createAcc) {
+  acc = await stdlib.newTestAccount(stdlib.parseCurrency(1100));
+} else {
+  const secret = await ask.ask(
+    `What is your account secret?`,
+    (x => x)
+  );
+  acc = await stdlib.newAccountFromSecret(secret);
+}
 
-console.log('Starting backends...');
+
 await Promise.all([
   backend.Alice(ctcAlice, {
     ...stdlib.hasRandom,
