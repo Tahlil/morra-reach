@@ -57,7 +57,13 @@ export const main = Reach.App(() => {
       const commitFingerBob = declassify(_commitFingerBob);
     });
     Bob.publish(commitFingerBob);
-    
+    commit();
+    Alice.only(() => {
+      const _numberAlice = interact.sayNumber();
+      const [_commitNumberAlice, _saltAlice] = makeCommitment(interact, _numberAlice);
+      const commitNumberAlice = declassify(_commitNumberAlice);
+    });
+    Alice.publish(commitNumberAlice);
 
   }
 
