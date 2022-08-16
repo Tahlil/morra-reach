@@ -65,6 +65,12 @@ export const main = Reach.App(() => {
     });
     Alice.publish(commitNumberAlice);
 
+    commit();
+    Bob.only(() => {
+      const numberBob = declassify(interact.sayNumber());
+    });
+    Bob.publish(numberBob);
+
   }
 
   
