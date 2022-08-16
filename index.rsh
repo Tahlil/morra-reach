@@ -46,17 +46,18 @@ export const main = Reach.App(() => {
     commit();
     Alice.only(() => {
       const _fingersAlice = interact.getFingers();
-      const [_commitAlice, _saltAlice] = makeCommitment(interact, _fingersAlice);
-      const commitAlice = declassify(_commitAlice);
+      const [_commitFingerAlice, _saltFingerAlice] = makeCommitment(interact, _fingersAlice);
+      const commitFingerAlice = declassify(_commitFingerAlice);
     });
-    Alice.publish(commitAlice);
+    Alice.publish(commitFingerAlice);
     commit();
     Bob.only(() => {
       const _fingersBob = interact.getFingers();
-      const [_commitBob, _saltBob] = makeCommitment(interact, _fingersBob);
-      const commitBob = declassify(_commitBob);
+      const [_commitFingerBob, _saltFingerBob] = makeCommitment(interact, _fingersBob);
+      const commitFingerBob = declassify(_commitFingerBob);
     });
-    Bob.publish(commitBob);
+    Bob.publish(commitFingerBob);
+    
 
   }
 
