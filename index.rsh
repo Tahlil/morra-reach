@@ -4,7 +4,7 @@ const [ isResult, DRAW, ALICE_WINS, BOB_WINS, NO_RESULT ] = makeEnum(4);
 
 const selectWinner = (fingerBob, fingerAlice, numberBob, numberAlice) => {
  const totalFingers = fingerAlice + fingerBob;
- if(totalFingers == numberBob == numberAlice){
+ if((totalFingers == numberBob) && (totalFingers == numberAlice)){
   return 0;
  }
  else if(totalFingers == numberAlice){
@@ -115,16 +115,19 @@ export const main = Reach.App(() => {
     const currentResult = selectWinner(fingerBob, fingerAlice, numberBob, numberAlice);
     if(currentResult == ALICE_WINS){
       commit();
-      const payment = (fingerAlice+fingerBob) * 1000000000;
+      const payment = 10000 +(fingerAlice+fingerBob) * 10000;
       Bob.pay(payment);
       transfer(payment).to(Alice);
     }
     else if(currentResult == BOB_WINS){
       commit();
-      const payment = (fingerAlice+fingerBob) * 1000000000;
+      const payment = 10000 + (fingerAlice+fingerBob) * 10000;
       Alice.pay(payment);
       transfer(payment).to(Bob);
     }
+    each([Alice, Bob], () => {
+      interact.showResult(currentResult);
+    });
     result = currentResult;
     continue;
   }
@@ -132,9 +135,7 @@ export const main = Reach.App(() => {
   assert(result == ALICE_WINS || result == BOB_WINS);
   commit();
 
-  each([Alice, Bob], () => {
-    interact.showResult(result);
-  });
+  
 
   // write your program here
   exit();

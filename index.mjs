@@ -2,7 +2,7 @@ import { loadStdlib, ask } from '@reach-sh/stdlib';
 import * as backend from './build/index.main.mjs';
 const stdlib = loadStdlib();
 
-const allResults = [ "It's a Draw", "Alice Wisn!", "Bob Wins!", "No Result" ];
+const allResults = [ "It's a Draw", "Alice Wins!", "Bob Wins!", "No Result" ];
 const isAlice = await ask.ask(
   `Are you Alice?`,
   ask.yesno
@@ -72,7 +72,7 @@ interact.sayNumber = async () => {
 }
 
 interact.showResult = async (res) => {
-  console.log(`The result it ${allResults[result]}`);
+  console.log(`The result is: ${allResults[res]}`);
 }
 
 const part = isAlice ? ctc.p.Alice : ctc.p.Bob;
