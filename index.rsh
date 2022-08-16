@@ -113,9 +113,20 @@ export const main = Reach.App(() => {
     });
     Alice.publish(saltNumberAlice, numberAlice);
     checkCommitment(commitNumberAlice, saltNumberAlice, numberAlice);
-    result = selectWinner(fingerBob, fingerAlice, numberBob, numberAlice);
+    const currentResult = selectWinner(fingerBob, fingerAlice, numberBob, numberAlice);
+    if(currentResult == ALICE_WINS){
+      commit();
+      Bob.pay(fingerAlice+fingerBob);
+    }
+    else if(currentResult == BOB_WINS){
+      commit();
+      Alice.pay(fingerAlice+fingerBob);
+    }
+    result = currentResult;
     continue;
   }
+
+  assert(result == ALICE_WINS || result == BOB_WINS);
   
 
   // write your program here
