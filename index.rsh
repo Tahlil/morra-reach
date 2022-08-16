@@ -58,7 +58,7 @@ export const main = Reach.App(() => {
   Bob.publish();
 
   var result = DRAW;
-  invariant(isResult(result))
+  invariant(balance() == 0 && isResult(result))
   while (result == DRAW || result == NO_RESULT) {
     commit();
     Alice.only(() => {
@@ -96,7 +96,6 @@ export const main = Reach.App(() => {
     
     Alice.publish(saltFingerAlice, fingerAlice);
     checkCommitment(commitFingerAlice, saltFingerAlice, fingerAlice);
-    assert(fingerAlice < 6);
     commit();
 
     Bob.only(() => {
@@ -105,7 +104,6 @@ export const main = Reach.App(() => {
     });
     Bob.publish(saltFingerBob, fingerBob);
     checkCommitment(commitFingerBob, saltFingerBob, fingerBob);
-    assert(fingerAlice < 6);
     commit();
 
     Alice.only(() => {
