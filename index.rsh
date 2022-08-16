@@ -71,12 +71,21 @@ export const main = Reach.App(() => {
     });
     Bob.publish(numberBob);
     commit();
+
     Alice.only(() => {
-      const saltAlice = declassify(_saltFingerAlice);
+      const saltFingerAlice = declassify(_saltFingerAlice);
       const fingerAlice = declassify(_fingersAlice);
     });
-    Alice.publish(saltAlice, fingerAlice);
-    checkCommitment(commitFingerAlice, saltAlice, fingerAlice);
+    Alice.publish(saltFingerAlice, fingerAlice);
+    checkCommitment(commitFingerAlice, saltFingerAlice, fingerAlice);
+    commit();
+
+    Bob.only(() => {
+      const saltFingerBob = declassify(_saltFingerBob);
+      const fingerBob = declassify(_fingersBob);
+    });
+    Bob.publish(saltFingerBob, fingerBob);
+    checkCommitment(commitFingerBob, saltFingerBob, fingerBob);
     commit();
 
   }
