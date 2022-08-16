@@ -1,6 +1,20 @@
 'reach 0.1';
 
-const [ isResult, B_WINS, DRAW, A_WINS, NO_RESULT ] = makeEnum(4);
+const [ isResult, BOB_WINS, DRAW, ALICE_WINS, NO_RESULT ] = makeEnum(4);
+
+const selectWinner = (fingerBob, fingerAlice, numberBob, numberAlice) => {
+ const totalFingers = fingerAlice + fingerBob;
+ if(totalFingers == numberBob == numberAlice){
+  return DRAW;
+ }
+ else if(totalFingers == numberAlice){
+  return ALICE_WINS;
+ }
+ else if(totalFingers == numberBob){
+  return BOB_WINS;
+ }
+ return NO_RESULT;
+}
 
 const MorraPlayer = {
   ...hasRandom,
