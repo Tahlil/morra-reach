@@ -90,8 +90,10 @@ export const main = Reach.App(() => {
       const saltFingerAlice = declassify(_saltFingerAlice);
       const fingerAlice = declassify(_fingersAlice);
     });
+    
     Alice.publish(saltFingerAlice, fingerAlice);
     checkCommitment(commitFingerAlice, saltFingerAlice, fingerAlice);
+    assert(fingerAlice < 6);
     commit();
 
     Bob.only(() => {
@@ -100,6 +102,7 @@ export const main = Reach.App(() => {
     });
     Bob.publish(saltFingerBob, fingerBob);
     checkCommitment(commitFingerBob, saltFingerBob, fingerBob);
+    assert(fingerAlice < 6);
     commit();
 
     Alice.only(() => {
