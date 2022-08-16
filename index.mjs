@@ -63,7 +63,12 @@ interact.getFingers = async () => {
 }
 
 interact.sayNumber = async () => {
-  
+  let number = -1;
+  while(number < 0){
+    number = await ask.ask(`What's the total?`, 
+    parseInt);
+ }
+ return number;
 }
 
 interact.showResult = async () => {
