@@ -1,6 +1,6 @@
-import {loadStdlib} from '@reach-sh/stdlib';
+import { loadStdlib, ask } from '@reach-sh/stdlib';
 import * as backend from './build/index.main.mjs';
-const stdlib = loadStdlib(process.env);
+const stdlib = loadStdlib();
 
 const allResults = [ "It's a Draw", "Alice Wisn!", "Bob Wins!", "No Result" ];
 const isAlice = await ask.ask(
