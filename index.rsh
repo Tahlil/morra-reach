@@ -36,6 +36,7 @@ export const main = Reach.App(() => {
   // });
   const deadline = 10;
   
+  
 
   const Alice = Participant('Alice', {
     ...MorraPlayer,
@@ -116,18 +117,22 @@ export const main = Reach.App(() => {
     const currentResult = selectWinner(fingerBob, fingerAlice, numberBob, numberAlice);
     if(currentResult == ALICE_WINS){
       commit();
-      Bob.pay(fingerAlice+fingerBob);
+      const payment = fingerAlice+fingerBob;
+      Bob.pay(payment);
+      transfer(payment).to(Alice);
     }
     else if(currentResult == BOB_WINS){
       commit();
-      Alice.pay(fingerAlice+fingerBob);
+      const payment = fingerAlice+fingerBob;
+      Alice.pay(payment);
+      transfer(payment).to(Bob);
     }
     result = currentResult;
     continue;
   }
 
   assert(result == ALICE_WINS || result == BOB_WINS);
-  
+  commit();
 
   // write your program here
   exit();
