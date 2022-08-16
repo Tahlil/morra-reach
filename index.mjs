@@ -40,5 +40,9 @@ if (isAlice) {
   ctc = acc.contract(backend, info);
 }
 
+const fmt = (x) => stdlib.formatCurrency(x, 5);
+const getBalance = async () => fmt(await stdlib.balanceOf(acc));
 
+const before = await getBalance();
+console.log(`${who}'s balance is ${before}`);
 
