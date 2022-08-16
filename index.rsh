@@ -22,7 +22,7 @@ const MorraPlayer = {
   ...hasRandom,
   getFingers: Fun([], UInt),
   sayNumber: Fun([], UInt),
-  getResult: Fun([], Null), // return true if there is a result otherwise will return false
+  showResult: Fun([UInt], Null), // return true if there is a result otherwise will return false
   confirmTimeOut: Fun([UInt], Null)
 } 
 
@@ -133,6 +133,10 @@ export const main = Reach.App(() => {
 
   assert(result == ALICE_WINS || result == BOB_WINS);
   commit();
+
+  each([Alice, Bob], () => {
+    interact.showResult(result);
+  });
 
   // write your program here
   exit();
