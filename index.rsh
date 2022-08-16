@@ -1,27 +1,29 @@
 'reach 0.1';
 
-const [ isResult, BOB_WINS, DRAW, ALICE_WINS, NO_RESULT ] = makeEnum(4);
+const [ isResult, DRAW, ALICE_WINS, BOB_WINS, NO_RESULT ] = makeEnum(4);
 
 const selectWinner = (fingerBob, fingerAlice, numberBob, numberAlice) => {
  const totalFingers = fingerAlice + fingerBob;
  if(totalFingers == numberBob == numberAlice){
-  return DRAW;
+  return 0;
  }
  else if(totalFingers == numberAlice){
-  return ALICE_WINS;
+  return 1;
  }
  else if(totalFingers == numberBob){
-  return BOB_WINS;
+  return 2;
  }
- return NO_RESULT;
+ else{
+  return 3;
+ }
 }
 
 const MorraPlayer = {
   ...hasRandom,
   getFingers: Fun([], UInt),
   sayNumber: Fun([], UInt),
-  getResult: Fun([UInt, UInt], Bool), // return true if there is a result otherwise will return false
-  confirmTimeOut: Fun([], Null)
+  getResult: Fun([], Null), // return true if there is a result otherwise will return false
+  confirmTimeOut: Fun([UInt], Null)
 } 
 
 export const main = Reach.App(() => {
@@ -55,7 +57,7 @@ export const main = Reach.App(() => {
   Bob.publish();
 
   var result = DRAW;
-  invariant(balance() == 0 && isResult(result))
+  invariant(isResult(result))
   while (result == DRAW || result == NO_RESULT) {
     commit();
     Alice.only(() => {
@@ -111,9 +113,9 @@ export const main = Reach.App(() => {
     });
     Alice.publish(saltNumberAlice, numberAlice);
     checkCommitment(commitNumberAlice, saltNumberAlice, numberAlice);
-
+    result = selectWinner(fingerBob, fingerAlice, numberBob, numberAlice);
+    continue;
   }
-
   
 
   // write your program here
