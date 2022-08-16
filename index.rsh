@@ -70,6 +70,14 @@ export const main = Reach.App(() => {
       const numberBob = declassify(interact.sayNumber());
     });
     Bob.publish(numberBob);
+    commit();
+    Alice.only(() => {
+      const saltAlice = declassify(_saltFingerAlice);
+      const fingerAlice = declassify(_fingersAlice);
+    });
+    Alice.publish(saltAlice, fingerAlice);
+    checkCommitment(commitFingerAlice, saltAlice, fingerAlice);
+    commit();
 
   }
 
