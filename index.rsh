@@ -23,7 +23,7 @@ const MorraPlayer = {
   getFingers: Fun([], UInt),
   sayNumber: Fun([], UInt),
   showResult: Fun([UInt], Null), // return true if there is a result otherwise will return false
-  confirmTimeOut: Fun([UInt], Null)
+  // confirmTimeOut: Fun([UInt], Null)
 } 
 
 export const main = Reach.App(() => {
@@ -48,11 +48,11 @@ export const main = Reach.App(() => {
  
   init();
 
-  const confirmTimeOut = () => {
-    each([Alice, Bob], () => {
-      interact.confirmTimeOut();
-    });
-  };
+  // const confirmTimeOut = () => {
+  //   each([Alice, Bob], () => {
+  //     interact.confirmTimeOut();
+  //   });
+  // };
   Alice.publish();
   commit();
   Bob.publish();
